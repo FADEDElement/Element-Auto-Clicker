@@ -1,10 +1,10 @@
-# Tic Tac Toe
+# Element Auto Clicker
 
-Simple terminal based tic tac toe game.
+Your one stop shop for auto clicker goodness.
 
 ## Description
 
-A game in which two players alternately put X's and O's in boxes of a figure formed by two vertical lines crossing two horizontal lines and each tries to get a row of three X's or three O's before the opponent does.
+A program that allows you auto clicking and macro functionality with your mouse. It was created for use in video game settings but I want it to be more versitile then that where you can use it an any applicable setting.
 
 ## Getting Started
 
@@ -24,7 +24,7 @@ Contributors names and contact info
 ## Version History
 
 * 0.1
-    * Planning
+    * Planning and Initial Setting up
 
 ## License
 
