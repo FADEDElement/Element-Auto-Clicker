@@ -13,7 +13,7 @@ A program that allows you auto clicking and macro functionality with your mouse.
 * CURRENTLY UNDER DEVELOPMENT - Planning
 
 ## What I used / learned
-* 
+* Good File Structure
 
 ## Authors
 
