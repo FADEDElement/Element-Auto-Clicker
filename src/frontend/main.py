@@ -1,13 +1,30 @@
 #Imports
 from customtkinter import *
 import pyautogui as pg
-from PIL import Image, ImageTk
+from PIL import Image
+from ctypes import windll
+
+#Taskbar icon
+GWL_EXSTYLE=-20
+WS_EX_APPWINDOW=0x00040000
+WS_EX_TOOLWINDOW=0x00000080
+
+def set_appwindow(root):
+    hwnd = windll.user32.GetParent(root.winfo_id())
+    style = windll.user32.GetWindowLongW(hwnd, GWL_EXSTYLE)
+    style = style & ~WS_EX_TOOLWINDOW
+    style = style | WS_EX_APPWINDOW
+    res = windll.user32.SetWindowLongW(hwnd, GWL_EXSTYLE, style)
+    root.wm_withdraw()
+    root.after(10, lambda: root.wm_deiconify())
 
 #Making the Base Window
 root = CTk()
 root.geometry("250x550")
 root.resizable(False, False)
 root.title("Script Clicker")
+root.iconbitmap('src\\frontend\\res\\logo\\scriptclicker_32.ico')
+root.overrideredirect(True)
 
 #Place program correctly in monitor
 def place_center():
@@ -20,6 +37,8 @@ def place_center():
     root.geometry(f"+{x}+{y}")
 place_center()
 
+root.attributes('-topmost',True)
+root.attributes('-topmost',False)
 
 #Titlebar move window funtionality
 def SaveLastClickPos(event):
@@ -43,15 +62,18 @@ def hoverCloseL(event):
     
 #Minimize Window Functionality
 def miniWindow(event):
-    root.state("withdrawn")
+    root.update_idletasks()
     root.overrideredirect(False)
-    root.state('iconic')
+    root.state("iconic")
+    hasstyle = False
     
-def uniminiWindow(event):
+def unminiWindow(event):
+    root.update_idletasks()
     root.overrideredirect(True)
     root.state("normal")
-    
-root.bind("<Map>", uniminiWindow)
+    hasstyle = True
+    set_appwindow(root)
+root.bind("<FocusIn>", unminiWindow)
 
 def hoverMiniE(event):
     minimize.configure(image=miniimg_hover)
@@ -102,6 +124,9 @@ minimize.pack(side="right", padx=3)
 minimize.bind("<Button-1>", miniWindow)
 minimize.bind("<Enter>", hoverMiniE)
 minimize.bind("<Leave>", hoverMiniL)
+
+#Finalize Taskbar Icon
+root.after(10, lambda: set_appwindow(root))
 
 #Closing Window Creation
 root.mainloop()
