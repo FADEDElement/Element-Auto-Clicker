@@ -10,10 +10,12 @@ A program that allows you auto clicking and macro functionality with your mouse.
 
 ### Installing
 
-* CURRENTLY UNDER DEVELOPMENT - Planning
+* CURRENTLY UNDER DEVELOPMENT
 
 ## What I used / learned
 * Good File Structure
+* Creaing a GUI with customtkinter
+* Loading Images with the pillow library
 
 ## Authors
 
@@ -23,8 +25,8 @@ Contributors names and contact info
 
 ## Version History
 
-* 0.1
-    * Planning and Initial Setting up
+* 0.1 (CURRENTLY UNDER DEVELOPMENT)
+    * Initial Setup
 
 ## License
 
