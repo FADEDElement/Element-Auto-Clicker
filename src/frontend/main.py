@@ -9,14 +9,17 @@ GWL_EXSTYLE=-20
 WS_EX_APPWINDOW=0x00040000
 WS_EX_TOOLWINDOW=0x00000080
 
-def set_appwindow(root):
-    hwnd = windll.user32.GetParent(root.winfo_id())
-    style = windll.user32.GetWindowLongW(hwnd, GWL_EXSTYLE)
-    style = style & ~WS_EX_TOOLWINDOW
-    style = style | WS_EX_APPWINDOW
-    res = windll.user32.SetWindowLongW(hwnd, GWL_EXSTYLE, style)
-    root.wm_withdraw()
-    root.after(10, lambda: root.wm_deiconify())
+def set_appwindow():
+    global hasstyle
+    if not hasstyle:
+        hwnd = windll.user32.GetParent(root.winfo_id())
+        style = windll.user32.GetWindowLongW(hwnd, GWL_EXSTYLE)
+        style = style & ~WS_EX_TOOLWINDOW
+        style = style | WS_EX_APPWINDOW
+        res = windll.user32.SetWindowLongW(hwnd, GWL_EXSTYLE, style)
+        root.withdraw()
+        root.after(100, lambda:root.wm_deiconify())
+        hasstyle=True
 
 #Making the Base Window
 root = CTk()
@@ -59,21 +62,19 @@ def hoverCloseE(event):
     
 def hoverCloseL(event):
     close.configure(image=closeimg)
-    
-#Minimize Window Functionality
+
 def miniWindow(event):
+    global hasstyle
     root.update_idletasks()
     root.overrideredirect(False)
     root.state("iconic")
     hasstyle = False
     
-def unminiWindow(event):
-    root.update_idletasks()
+def frame_map(event):
     root.overrideredirect(True)
+    root.update_idletasks()
+    set_appwindow()
     root.state("normal")
-    hasstyle = True
-    set_appwindow(root)
-root.bind("<FocusIn>", unminiWindow)
 
 def hoverMiniE(event):
     minimize.configure(image=miniimg_hover)
@@ -92,6 +93,7 @@ miniimg_hover = CTkImage(light_image=Image.open("src\\frontend\\res\\icons\\mini
 titleBar = CTkFrame(root, bg_color="#202020")
 titleBar.pack(expand=0, side="top", fill="x")
 titleBar.bind("<B1-Motion>", moveWindow)
+titleBar.bind("<Map>",frame_map)
 
 logo = CTkLabel(titleBar, image=logoimg, text="")
 logo.pack(side="left", padx=5)
@@ -125,8 +127,11 @@ minimize.bind("<Button-1>", miniWindow)
 minimize.bind("<Enter>", hoverMiniE)
 minimize.bind("<Leave>", hoverMiniL)
 
-#Finalize Taskbar Icon
-root.after(10, lambda: set_appwindow(root))
+#Set Taskbar Icon
+hasstyle = False
+root.update_idletasks()
+root.withdraw()
+set_appwindow()
 
 #Closing Window Creation
 root.mainloop()
