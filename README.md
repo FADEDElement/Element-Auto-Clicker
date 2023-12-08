@@ -1,4 +1,4 @@
-# Element Auto Clicker
+# Script Clicker
 
 Your one stop shop for auto clicker goodness.
 
