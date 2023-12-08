@@ -7,8 +7,9 @@ from PIL import Image, ImageTk
 root = CTk()
 root.geometry("250x550")
 root.resizable(False, False)
+root.title("Script Clicker")
 
-#Center program in monitor
+#Place program correctly in monitor
 def place_center():
     global x, y
     reso = pg.size()
@@ -18,6 +19,7 @@ def place_center():
     y = int((ry/2) - (root.winfo_height()/2))
     root.geometry(f"+{x}+{y}")
 place_center()
+
 
 #Titlebar move window funtionality
 def SaveLastClickPos(event):
@@ -58,11 +60,11 @@ def hoverMiniL(event):
     minimize.configure(image=miniimg)
 
 #Loading TitleBar Images
-logoimg = ImageTk.PhotoImage(Image.open("src\\frontend\\res\logo\scriptclicker.png"))
-closeimg = ImageTk.PhotoImage(Image.open("src\\frontend\\res\icons\close.png"))
-closeimg_hover = ImageTk.PhotoImage(Image.open("src\\frontend\\res\icons\close_hover.png"))
-miniimg = ImageTk.PhotoImage(Image.open("src\\frontend\\res\icons\minimize.png"))
-miniimg_hover = ImageTk.PhotoImage(Image.open("src\\frontend\\res\icons\minimize_hover.png"))
+logoimg = CTkImage(light_image=Image.open("src\\frontend\\res\\logo\\scriptclicker_24.png"))
+closeimg = CTkImage(light_image=Image.open("src\\frontend\\res\\icons\\close.png"))
+closeimg_hover = CTkImage(light_image=Image.open("src\\frontend\\res\\icons\\close_hover.png"))
+miniimg = CTkImage(light_image=Image.open("src\\frontend\\res\\icons\\minimize.png"))
+miniimg_hover = CTkImage(light_image=Image.open("src\\frontend\\res\\icons\\minimize_hover.png"))
 
 #Building the Titlebar
 titleBar = CTkFrame(root, bg_color="#202020")
