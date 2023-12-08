@@ -4,7 +4,7 @@ import pyautogui as pg
 from PIL import Image
 from ctypes import windll
 
-#Taskbar icon
+#Taskbar icon Setup (For use if overrideredirect is used)
 GWL_EXSTYLE=-20
 WS_EX_APPWINDOW=0x00040000
 WS_EX_TOOLWINDOW=0x00000080
@@ -29,7 +29,7 @@ root.title("Script Clicker")
 root.iconbitmap('src\\frontend\\res\\logo\\scriptclicker_32.ico')
 root.overrideredirect(True)
 
-#Place program correctly in monitor
+#Place program in center
 def place_center():
     global x, y
     reso = pg.size()
@@ -40,6 +40,7 @@ def place_center():
     root.geometry(f"+{x}+{y}")
 place_center()
 
+#Place program on top
 root.attributes('-topmost',True)
 root.attributes('-topmost',False)
 
@@ -63,6 +64,7 @@ def hoverCloseE(event):
 def hoverCloseL(event):
     close.configure(image=closeimg)
 
+#Minimize and Unminize Functionality
 def miniWindow(event):
     global hasstyle
     root.update_idletasks()
@@ -70,9 +72,9 @@ def miniWindow(event):
     root.state("iconic")
     hasstyle = False
     
-def frame_map(event):
-    root.overrideredirect(True)
+def unminiWindow(event):
     root.update_idletasks()
+    root.overrideredirect(True)
     set_appwindow()
     root.state("normal")
 
@@ -93,7 +95,7 @@ miniimg_hover = CTkImage(light_image=Image.open("src\\frontend\\res\\icons\\mini
 titleBar = CTkFrame(root, bg_color="#202020")
 titleBar.pack(expand=0, side="top", fill="x")
 titleBar.bind("<B1-Motion>", moveWindow)
-titleBar.bind("<Map>",frame_map)
+titleBar.bind("<Map>",unminiWindow)
 
 logo = CTkLabel(titleBar, image=logoimg, text="")
 logo.pack(side="left", padx=5)
@@ -133,5 +135,5 @@ root.update_idletasks()
 root.withdraw()
 set_appwindow()
 
-#Closing Window Creation
+#End of Window Creation
 root.mainloop()
