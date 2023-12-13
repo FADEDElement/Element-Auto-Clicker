@@ -11,6 +11,7 @@ A program that allows you auto clicking and macro functionality with your mouse.
 ### Installing
 
 * CURRENTLY UNDER DEVELOPMENT
+* [Planning](https://app.milanote.com/1MOWdA1C25eKbw?p=ITZrHy44UK5)
 
 ## What I used / learned
 * Good File Structure
