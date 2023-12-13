@@ -29,6 +29,9 @@ root.title("Script Clicker")
 root.iconbitmap('src\\frontend\\res\\logo\\scriptclicker_32.ico')
 root.overrideredirect(True)
 
+scwin = CTkFrame(root, fg_color="#181818")
+scwin.pack(fill="both", expand="1")
+
 #Place program in center
 def place_center():
     global x, y
@@ -92,7 +95,7 @@ miniimg = CTkImage(light_image=Image.open("src\\frontend\\res\\icons\\minimize.p
 miniimg_hover = CTkImage(light_image=Image.open("src\\frontend\\res\\icons\\minimize_hover.png"))
 
 #Building the Titlebar
-titleBar = CTkFrame(root, bg_color="#202020")
+titleBar = CTkFrame(scwin, bg_color="#202020")
 titleBar.pack(expand=0, side="top", fill="x")
 titleBar.bind("<B1-Motion>", moveWindow)
 titleBar.bind("<Map>",unminiWindow)
@@ -104,7 +107,7 @@ title = CTkFrame(titleBar, fg_color="transparent")
 title.pack(side="left", padx=3)
 
 #Parts of Title
-titleP1 = CTkLabel(title, text="</", text_color="#0abdd1", font=("Sans-serif", 15))
+titleP1 = CTkLabel(title, text="</", text_color="#07BCD0", font=("Sans-serif", 15))
 titleP1.grid(column=0, row=0)
 titleP1.bind("<B1-Motion>", moveWindow)
 
@@ -112,7 +115,7 @@ titleP2 = CTkLabel(title, text="ScriptClicker", text_color="white", font=("Sans-
 titleP2.grid(column=1, row=0)
 titleP2.bind("<B1-Motion>", moveWindow)
 
-titleP3 = CTkLabel(title, text=">", text_color="#0abdd1", font=("Sans-serif", 15))
+titleP3 = CTkLabel(title, text=">", text_color="#07BCD0", font=("Sans-serif", 15))
 titleP3.grid(column=2, row=0)
 titleP3.bind("<B1-Motion>", moveWindow)
 
@@ -134,6 +137,49 @@ hasstyle = False
 root.update_idletasks()
 root.withdraw()
 set_appwindow()
+
+#Window Element - CPS Counter
+cpsCounter = CTkFrame(scwin, fg_color="transparent")
+cpsCounter.pack()
+
+displayCPS = CTkLabel(cpsCounter, text="000", text_color="#07BCD0")
+displayCPS.pack()
+
+lblcps = CTkLabel(cpsCounter, text="CPS", text_color="white")
+lblcps.pack()
+
+#Click Interval Functionality
+def clickInt():
+    print("radiobutton toggled, current value:", clickIntType.get())
+
+#Window Element - Click Interval
+clickIntFrame = CTkFrame(scwin, fg_color="transparent")
+clickIntFrame.pack()
+
+lblClickInt0 = CTkFrame(clickIntFrame, fg_color="transparent")
+lblClickInt0.pack()
+lblClickIntP1 = CTkLabel(lblClickInt0, text="$", text_color="#07BCD0", font=("Sans-serif", 15))
+lblClickIntP1.grid(column=0, row=0)
+lblClickIntP2 = CTkLabel(lblClickInt0, text="Click Interval", text_color="white", font=("Sans-serif", 15))
+lblClickIntP2.grid(column=1, row=0)
+
+clickIntType = StringVar(value="miliseconds")
+milisecIntOp = CTkRadioButton(clickIntFrame, text="Miliseconds", command=clickInt, variable=clickIntType, value="miliseconds")
+milisecIntOp.pack()
+cpsIntOp = CTkRadioButton(clickIntFrame, text="CPS", command=clickInt, variable=clickIntType, value="cps")
+cpsIntOp.pack()
+
+minClickInt = CTkEntry(clickIntFrame)
+minClickInt.pack()
+
+lbldash = CTkLabel(clickIntFrame, text="-")
+lbldash.pack()
+
+maxClickInt = CTkEntry(clickIntFrame)
+maxClickInt.pack()
+
+#Window Element - Repeat
+
 
 #End of Window Creation
 root.mainloop()
